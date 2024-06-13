@@ -4,7 +4,30 @@
   "description": "Apply rewards autmatically when visiting chase website",
   "version": "1.0",
   "action": {
-    "default_popup": "hello.html",
-    "default_icon": "hello_extensions.png"
-  }
+    "default_title": "Chase Rewards Selector",
+    "default_icon": {
+      "16": "images/FaviconIcon.png",
+      "32": "images/WindowsIcon.png",
+      "48": "images/ExtensionsPageIcon.png",
+      "128": "images/ChromeWebStoreIcon.png"
+    }
+  },
+  "icons": {
+    "16": "images/FaviconIcon.png",
+    "32": "images/WindowsIcon.png",
+    "48": "images/ExtensionsPageIcon.png",
+    "128": "images/ChromeWebStoreIcon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://secure.chase.com/web/auth/dashboard#/dashboard/overview"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": [
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://secure.chase.com/web/auth/dashboard#/dashboard/merchantOffers/offer-hub?accountId=*"
+  ]
 }
