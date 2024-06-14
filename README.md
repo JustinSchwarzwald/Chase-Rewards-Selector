@@ -5,3 +5,7 @@ Clone the repo and then all you have to do is install the plugin: https://www.cn
 
 once you login to the chase account on the main page (https://secure.chase.com/web/auth/dashboard#/dashboard/overview)
 you click the plugin icon and it should select and activate all account offers.
+
+
+
+Not responsible for any issues, please use responibly this is in beta and chase might change there website in the future. Yada yada yada use at your own risk.
