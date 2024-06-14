@@ -21,13 +21,26 @@
   "content_scripts": [
     {
       "matches": ["https://secure.chase.com/web/auth/dashboard#/dashboard/overview"],
+      "js": ["activateOffers.js"]
+    },
+    {
+      "matches": ["https://secure.chase.com/web/auth/dashboard#/dashboard/merchantOffers/offer-hub?accountId=*"],
       "js": ["content.js"]
     }
   ],
   "permissions": [
-    "tabs"
+    "tabs",
+    "scripting",
+    "activeTab"
   ],
   "host_permissions": [
     "https://secure.chase.com/web/auth/dashboard#/dashboard/merchantOffers/offer-hub?accountId=*"
-  ]
+  ],
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "action": {
+
+  }
 }
+// "https://secure.chase.com/web/auth/dashboard#/dashboard/overview"
