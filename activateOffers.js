@@ -7,9 +7,9 @@ function interactWithElements() {
 
   interactiveElements.forEach((element) => {
     console.log("Chase-Rewards-Selector -> Clicking: " + element.parentNode.parentNode.parentNode.getAttribute("aria-label"))
-    element.shadowRoot.firstChild.click();
-    history.back();
+    // element.shadowRoot.firstChild.click();
   });
+
   console.log("Chase-Rewards-Selector -> sendingFinishedActivation");
   chrome.runtime.sendMessage({message: "finishedActivation"});
 }
@@ -17,9 +17,12 @@ function interactWithElements() {
 // Set up a MutationObserver to watch for changes in the body of the document
 let observer = new MutationObserver(function(mutations) {
   // If the elements are now present, interact with them and disconnect the observer
-  if (document.querySelector('[color="interactive"]')) {
+  if (document.querySelector('[color="interactive"]') || document.querySelector('[color="success"]')) {
     interactWithElements();
     observer.disconnect();
+    console.log("CLOSING TAB")
+    // Send a message to the background script
+    chrome.runtime.sendMessage({command: "closeTab"});
   }
 });
 

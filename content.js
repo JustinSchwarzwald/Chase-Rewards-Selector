@@ -10,9 +10,3 @@ document.querySelectorAll('[data-testid="accounts-name-link"]').forEach( (accoun
 console.log("Chase-Rewards-Selector -> offerUrls found: " + offerUrls.size + " = " + [...offerUrls].join(' ')); 
 
 chrome.runtime.sendMessage({message: "saveUrls", offerUrls: Array.from(offerUrls) });
-
-// // Open each URL open a new tab and run activateOffer script
-// offerUrls.forEach((url) => {
-//   console.log(url);
-//   chrome.runtime.sendMessage({message: "saveUrls", urls: url });
-// });

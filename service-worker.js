@@ -25,6 +25,7 @@ function runActivation(url) {
   console.log(url)
   chrome.tabs.create({ url: url }, function(tab) {
       chrome.tabs.onUpdated.addListener(function listener (tabId, info) {
+        console.log("Chase-Rewards-Selector -> tabId: " + tabId + " Info: " + info)
         if (info.status === 'complete' && tabId === tab.id) {
           chrome.tabs.onUpdated.removeListener(listener);
           chrome.scripting.executeScript({
@@ -32,7 +33,6 @@ function runActivation(url) {
             files: ['activateOffers.js']
           }).then(() => {
             console.log("Chase-Rewards-Selector -> activatingOffers.js");
-            // chrome.tabs.remove(tab.id);
             if(urls.length > 0){
               runActivation(urls[0]);
             } else {
@@ -45,3 +45,10 @@ function runActivation(url) {
       });
     });
 }
+
+// Listen for the message from the content script
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.command === "closeTab") {
+    chrome.tabs.remove(sender.tab.id);
+  }
+});
