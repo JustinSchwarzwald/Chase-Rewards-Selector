@@ -1,7 +1,7 @@
 console.log("Chase-Rewards-Selector -> Started running: service-worker.js")
 
-urls = new Set()
-
+urls = new Set();
+timeout = 0;
 
 chrome.action.onClicked.addListener(tab => {
   chrome.scripting.executeScript(
@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 function runActivation(url) {
   urls.shift()
   console.log(url)
-  chrome.tabs.create({ url: url }, function(tab) {
+  chrome.tabs.create({ url: url, active: false }, function(tab) {
       chrome.tabs.onUpdated.addListener(function listener (tabId, info) {
         console.log("Chase-Rewards-Selector -> tabId: " + tabId + " Info: " + info)
         if (info.status === 'complete' && tabId === tab.id) {
@@ -41,6 +41,12 @@ function runActivation(url) {
           }).catch((error) => {
             console.error('Failed to execute script:', error);
           });
+        } else if (timeout > 40){
+          console.log("Chase-Rewards-Selector -> timeout exceded limit");
+          chrome.tabs.onUpdated.removeListener(listener);
+          chrome.tabs.remove(tabId);
+        } else {
+          timeout = timeout + 1
         }
       });
     });
