@@ -7,7 +7,7 @@ function interactWithElements() {
 
   interactiveElements.forEach((element) => {
     console.log("Chase-Rewards-Selector -> Clicking: " + element.parentNode.parentNode.parentNode.getAttribute("aria-label"))
-    // element.shadowRoot.firstChild.click();
+    element.shadowRoot.firstChild.click();
   });
 
   console.log("Chase-Rewards-Selector -> sendingFinishedActivation");
@@ -20,7 +20,7 @@ let observer = new MutationObserver(function(mutations) {
   if (document.querySelector('[color="interactive"]') || document.querySelector('[color="success"]')) {
     interactWithElements();
     observer.disconnect();
-    console.log("CLOSING TAB")
+    console.log("Chase-Rewards-Selector -> Closing Tab")
     // Send a message to the background script
     chrome.runtime.sendMessage({command: "closeTab"});
   }
